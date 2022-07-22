@@ -1,0 +1,102 @@
+{% extends "base.html.twig" %} 
+
+{% block body %} 
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href=" {{ path("app_home")}}">Books</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href=" {{ path("app_home")}}"> Accueil </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path("livre_parution")}}"> Parutions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=""> A propos</a>
+          </li>
+          {% if not is_granted( 'IS_AUTHENTICATED_FULLY') %}
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ path("app_register")}}"> S'inscrire </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path("app_login")}}"> Connexion </a>
+          </li>
+           {% endif %}
+          <li class="nav-item">
+              <a class="nav-link" href="{{path("panier_show")}}" ><i class="fas fa-bag-shopping mx-1 text-light" alt="Vos achats"></i></a>
+              </li>
+           {% if is_granted( 'IS_AUTHENTICATED_FULLY') %}
+          <li class="nav-item">
+            <a class="nav-link" href=""> Profil </a>
+          </li>
+         {% if is_granted( 'IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Admin
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="{{ path("admin_gestion_livre")}}">Liste livres</a></li>
+              <li><a class="dropdown-item" href="{{ path("admin_ajout_livre")}}">Ajout fiche de livre</a></li>
+              <li><a class="dropdown-item" href=" {{ path("admin_ajout_categorie")}}">Ajout categorie</a></li>
+            </ul>
+          </div>
+           {% endif %}
+            {% endif %}
+        </ul>
+      </div>
+      {% if is_granted( 'IS_AUTHENTICATED_FULLY') %}
+        <p class="pr-5  my-auto text-white">Bonjour  {{app.user.prenom}}</p>
+        <a class="nav-link" href="{{path("app_logout")}}"><i class="fas fa-right-from-bracket text-light "></i></a>
+      {% endif %}
+    </div>
+  </nav>
+</header>
+
+<main class="container mb-5 pb-5">
+{% for message in app.flashes ('success') %}
+   <div class="alert alert-success text-center">
+     <p> {{message}} </p>
+   </div>
+ {% endfor %}
+ {% for message in app.flashes ('error') %}
+   <div class="alert alert-danger text-center">
+     <p> {{message}} </p>
+   </div>
+ {% endfor %}
+  {% block content %} 
+   {% endblock %}
+</main>
+
+<footer class="fixed-bottom bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href=""> © PSE 2022 </a></li>
+        <li class="nav-item"><a class="nav-link" href=""> PSE</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href=""> Nous contacter </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</footer>
+{% endblock body %}

@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 5%;
+  color: black;
+  text-align: center;
+}
+
+.card-horizontal {
+  display: flex;
+  flex: 1 1 auto;
+}

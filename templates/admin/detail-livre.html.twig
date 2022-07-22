@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %} 
+
+{% block title %} {{ parent() }} {{livre.titre}}{% endblock %} 
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md6 col-lg-12 col-sm-12 mt-3">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img  src="{{ asset('photosLivre/' ~ livre.photoCouv) }}">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title my-3">{{ livre.titre }}</h4>
+                        <p class="card-text">{{ livre.categorie.nom }}</p><br>
+                        <h6 ><b>Résumé </b> <br><br>{{ livre.resume}}</h6><br>
+                        <h6 ><b>Extrait </b> <br></h6>
+                        <q>{{ livre.extrait}}</q><br><br>
+                        <h6><b>Stock : {{ livre.stock}}</h6>
+                        <h6 class='text-danger'>Prix : {{ livre.prix}}€</h6>
+
+                        <a href="{{ path("admin_gestion_livre")}}"><i class="fas fa-arrow-rotate-left text-dark "></i></a>
+
+                        {# <a href=" {{path("panier_add", {id: livre.id})}}  "><i class="fas fa-basket-shopping text-danger"></i></a> #}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

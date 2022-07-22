@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %} 
+{% block title %}{{ parent()}} Ajouter un livre {% endblock %} 
+
+
+{% block content %}
+
+<div class="container" style="width: 70%">
+    {{ (app.request.get('_route') == 'admin_ajout_livre') ? '<h1 class="text-danger">Ajouter un livre</h1>' : '<h1 class="text-danger">Modifier la fiche</h1>'}}
+  {{ form(formLivre) }}
+  
+</div>
+
+{% endblock %}
